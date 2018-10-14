@@ -42,6 +42,7 @@ div.logo, div.menu {
     background: #fff;
     padding: 0 2rem;
     justify-content: center;
+    text-align: right;
 }
 
 h1.logo {
