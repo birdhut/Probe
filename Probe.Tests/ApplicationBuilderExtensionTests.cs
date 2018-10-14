@@ -12,13 +12,6 @@
 
     public class ApplicationBuilderExtensionTests
     {
-        public ApplicationBuilderExtensionTests()
-        {
-            
-            
-
-        }
-
         [Fact]
         public void Should_error_when_services_have_not_been_configured()
         {
