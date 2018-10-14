@@ -8,16 +8,17 @@
     /// </summary>
     public struct ImageFile
     {
+        public const string GenericImageMimeType = "image";
         /// <summary>
         /// A list of supported image formats to mime types
         /// </summary>
         public static readonly Dictionary<string, string> MimeTypes = new Dictionary<string, string>
         {
-            { "ico", "image/x-icon" },
-            { "gif", "image/gif" },
-            { "png", "image/png" },
-            { "jpeg", "image/jpg" },
-            { "jpg", "image/jpg" }
+            { "ico", $"{GenericImageMimeType}/x-icon" },
+            { "gif", $"{GenericImageMimeType}/gif" },
+            { "png", $"{GenericImageMimeType}/png" },
+            { "jpeg", $"{GenericImageMimeType}/jpg" },
+            { "jpg", $"{GenericImageMimeType}/jpg" }
         };
 
         /// <summary>
@@ -45,7 +46,7 @@
             Extension = Path.GetExtension(filePath).Trim(' ', '.');
             if (!MimeTypes.TryGetValue(Extension, out string mime))
             {
-                mime = "image";
+                mime = GenericImageMimeType;
             }
             MimeType = mime;
         }
