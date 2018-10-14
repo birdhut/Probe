@@ -4,9 +4,7 @@ namespace Probe.Tests
     using Probe.Service;
     using Shouldly;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
     using Xunit;
 
     public class ProbeServiceTests
@@ -105,56 +103,6 @@ namespace Probe.Tests
 
             dependencyProbe.ShouldNotBeNull();
             dependencyProbe.Id.ShouldBe(probeTestServiceDependenciesId);
-        }
-    }
-
-    public class ProbeServiceTestProbe : IProbe
-    {
-        public string Id => "ProbeServiceTestProbe";
-
-        public string Description => "ProbeServiceTestProbe";
-
-        public ISet<ProbeArg> Args => new HashSet<ProbeArg>();
-
-        public Task<dynamic> OnHandle(ProbeRunArgs args)
-        {
-            object result = new { Id, Description };
-            return Task.FromResult(result);
-        }
-    }
-
-    public interface ISimpleDependency
-    {
-        string DependencyTest();
-    }
-
-    public class SimpleDependency : ISimpleDependency
-    {
-        public string DependencyTest()
-        {
-            return "DependencyWorks";
-        }
-    }
-
-    public class ProbeServiceTestProbeWithDependencies : IProbe
-    {
-        private readonly ISimpleDependency dependency;
-
-        public ProbeServiceTestProbeWithDependencies(ISimpleDependency dependency)
-        {
-            this.dependency = dependency;
-        }
-
-        public string Id => "ProbeServiceTestProbeWithDependencies";
-
-        public string Description => "ProbeServiceTestProbeWithDependencies";
-
-        public ISet<ProbeArg> Args => new HashSet<ProbeArg>();
-
-        public Task<dynamic> OnHandle(ProbeRunArgs args)
-        {
-            object result = new { Id, Description, DependencyText = dependency.DependencyTest() };
-            return Task.FromResult(result);
         }
     }
 }

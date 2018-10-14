@@ -1,9 +1,15 @@
-﻿namespace Probe.Service
+﻿
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo("Probe.Tests")]
+
+namespace Probe.Service
 {
     using Microsoft.Extensions.DependencyInjection;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
+    
 
     /// <summary>
     /// A default, in-memory implementation of the <see cref="IProbeBuilder"/> and <see cref="IProbeService"/> interfaces.
@@ -85,5 +91,15 @@
 
             probeTypes.Clear();
         }
+
+        /// <summary>
+        /// Gets a <see cref="HashSet{T}"/> of registered probe types
+        /// </summary>
+        internal HashSet<Type> RegisteredProbes => this.probeTypes;
+
+        /// <summary>
+        /// Gets a <see cref="Dictionary{TKey, TValue}"/> of Probe Instances
+        /// </summary>
+        internal Dictionary<string, IProbe> ProbeInstances => this.probes;
     }
 }
