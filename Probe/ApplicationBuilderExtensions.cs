@@ -19,7 +19,7 @@
         /// <returns>The <see cref="IApplicationBuilder"/> configured with the required Probe Middleware</returns>
         public static IApplicationBuilder UseProbeDiagnostics(this IApplicationBuilder app)
         {
-            var service = (ProbeService)app.ApplicationServices.GetService(typeof(ProbeService));
+            var service = (ProbeService)app.ApplicationServices.GetService(typeof(IProbeService));
             if (service == null)
             {
                 throw new InvalidOperationException("Probe has not been configured");
