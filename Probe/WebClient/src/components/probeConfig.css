@@ -1,0 +1,17 @@
+div.probe-wrap {}
+h3.prober-header {}
+p.probe-description  {}
+input.probe-run {
+    background-color: #0099cc;
+    color: #fff;
+    border-radius: .2rem;
+    border-image: none;
+    border: 1px solid #0099cc;
+    padding: .5rem;
+}
+
+input.probe-run:hover {
+    cursor: pointer;
+}
+
+p.no-probe {}
