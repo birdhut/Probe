@@ -7,8 +7,8 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = (env, argv) => {
     const inDir = path.resolve(__dirname, 'src');
-    const outputDir = path.resolve(__dirname, 'dist');
-    const devMode = argv.mode !== 'production'
+    const outputDir = path.resolve(__dirname, '../', 'Service', 'Client');
+    const devMode = argv.mode !== 'production';
     console.info(`Dev Mode: ${devMode} (mode=${argv.mode})`);
     const plugins = [];
     if (!devMode) {
@@ -17,7 +17,7 @@ module.exports = (env, argv) => {
     plugins.push(new HtmlWebpackPlugin({
         filename: 'index.html',
         template: path.join(inDir, 'index.hbs'),
-        useMockData: devMode ? true : false,
+        useMockData: devMode ? true : false
     }));
      plugins.push(new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
@@ -28,22 +28,26 @@ module.exports = (env, argv) => {
 
     return {
         entry: {
-            probeweb: path.join(inDir, 'index.tsx'),
+            probeweb: path.join(inDir, 'index.tsx')
         },
         module: {
             rules: [
-            {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/
-            },
-            {
-                test: /\.css$/,
-                use: [
-                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-                    'css-loader'
-                ]
-            }
+                {
+                    test: /\.tsx?$/,
+                    use: 'ts-loader',
+                    exclude: /node_modules/
+                },
+                {
+                    test: /\.css$/,
+                    use: [
+                        devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+                        'css-loader'
+                    ]
+                },
+                {
+                    test: /\.jpe?g$|\.ico$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
+                    loader: 'file-loader?name=[name].[ext]'  // <-- retain original file name
+                }
             ]
         },
         optimization: {
