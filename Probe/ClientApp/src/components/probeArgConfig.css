@@ -9,11 +9,12 @@ fieldset {
 }
 
 legend {
-  font-size: 1rem;
-  background: #ccc;
+  font-size: .8rem;
+  background: #eee;
   padding: .5rem !important;
   border-radius: .5rem;
-  margin-left: 1rem !important;
+  margin-left: .5rem !important;
+  border: 1px solid #ccc;
 }
 
 div.probe-arg {
@@ -23,7 +24,8 @@ div.probe-arg {
 div.probe-arg label {
   margin-right: 1rem;
   font-weight: bold;
-  grid-column: 1;
+  display: inline-block;
+  width: 20%;
 }
 
 div.probe-arg input {
@@ -34,21 +36,11 @@ div.probe-arg input {
 
 
 div.probe-arg span.probe-required {
-    color: #fff;
-    background: #d00;
+    color: #d00;
     display: inline-block;
-    width: 1.4rem;
-    height: 1.4rem;
-    margin: 0 1rem;
-    line-height: 1.5rem;
-    border-radius: 40%;
-    grid-column: 3;
+    margin-left: .5rem;
 }
 
-span.probe-required:before {
-  content: '\01c3';
-  padding: 0 .6rem;
-}
 
 .probe-ctrl-string {}
 .probe-ctrl-date {}

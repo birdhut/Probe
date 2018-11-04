@@ -1,0 +1,9 @@
+div.probe-stats {
+    margin: .5rem;
+}
+
+div.probe-stats p {
+    font-size: .8rem;
+    color: #666;
+    margin: 0;
+}

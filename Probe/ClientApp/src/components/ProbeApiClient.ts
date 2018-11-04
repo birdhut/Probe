@@ -63,24 +63,37 @@ class MockProbeClient implements IProbeApiClient {
             id: "Test",
             description: "This is a test",
             args: [
-                { name: "arg1", type: ProbeArgType.String, isRequired: false },
+                { name: "incidental", type: ProbeArgType.String, isRequired: false },
             ],
         },
         {
-            id: "Donkey",
+            id: "Test Required",
+            description: "This is a test with required arguments",
+            args: [
+                { name: "the date", type: ProbeArgType.Date, isRequired: true },
+                { name: "a number", type: ProbeArgType.Number, isRequired: true },
+            ],
+        },
+        {
+            id: "Test DateTime",
             description: "This is a donkey",
             args: [
-                { name: "arg2", type: ProbeArgType.Date, isRequired: true },
-                { name: "arg3", type: ProbeArgType.Number, isRequired: true },
+                { name: "start time", type: ProbeArgType.DateTime, isRequired: true },
             ],
         },
     ];
 
     public async getProbes(): Promise<ProbeInfo[]> {
+        await this.sleep(2000);
         return Promise.resolve(this.probes);
     }
 
+    private sleep(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     public async runProbe(id: string, args: ProbeRunArgs): Promise<any> {
+        await this.sleep(2000);
         const probe: ProbeInfo = this.probes.find(p => p.id === id);
         if (probe != null) {
             return Promise.resolve({ probe, args });
@@ -90,6 +103,5 @@ class MockProbeClient implements IProbeApiClient {
     }
 }
 
-const config: ProbeConfig = { useMockData: false };
 const client: IProbeApiClient = config.useMockData ? new MockProbeClient() : new HttpProbeClient();
 export default client;

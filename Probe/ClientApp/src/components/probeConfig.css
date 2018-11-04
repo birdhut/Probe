@@ -14,4 +14,9 @@ input.probe-run:hover {
     cursor: pointer;
 }
 
+input.probe-run:disabled {
+    cursor: not-allowed;
+    opacity: .2;
+}
+
 p.no-probe {}

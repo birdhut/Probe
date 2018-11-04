@@ -1,6 +1,6 @@
 {
     "extends": "tslint:recommended",
     "rules": {
-        "interface-name": [true, "always-prefix"],
+        "interface-name": [true, "never-prefix"],
     }
 }

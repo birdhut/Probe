@@ -15,7 +15,7 @@ const ProbeResult: React.SFC<ProbeResultProps> = (props: ProbeResultProps) => {
     }
 
     return (
-        <pre key={`probe-result-${props.id}`}>
+        <pre key={`probe-result-${props.id}`} className={props.isLoading ? "loading" : undefined}>
             {props.isLoading && <Loader />}
             {props.result && JSON.stringify(props.result, null, 2)}
         </pre>

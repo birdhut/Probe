@@ -1,8 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/birdhut/Probe/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/birdhut/Probe</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/birdhut/Probe/raw/master/docs/probe_logo.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/birdhut/Probe</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <Copyright>Birdhut 2018</Copyright>
+    <Description>Simple plugin for probing running aspnet core applications, providing api and (optional) web client interfaces.
+</Description>
+    <Authors>Birdhut</Authors>
+    <Company>BirdhutBirdhut</Company>
   </PropertyGroup>
 
   <ItemGroup>

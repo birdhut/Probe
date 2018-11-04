@@ -7,6 +7,7 @@ import "./probeConfig.css";
 interface ProbeProps {
     probe?: ProbeInfo;
     onSendProbe: (args: ProbeRunArgs) => void;
+    loadingResult?: boolean;
 }
 
 interface ProbeState {
@@ -43,7 +44,7 @@ class ProbeConfig extends React.Component<ProbeProps, ProbeState> {
     }
 
     public render(): JSX.Element {
-        const { probe } = this.props;
+        const { probe, loadingResult } = this.props;
         const { args, canSend } = this.state;
         const elements: JSX.Element[] = [];
 
@@ -54,11 +55,12 @@ class ProbeConfig extends React.Component<ProbeProps, ProbeState> {
                 id={probe.id} 
                 args={probe.args} 
                 onValueSet={(name: string, value: string) => this.onArgValueSet(name, value)} />)
-
-            if (canSend) {
-                elements.push(<input key="probe-run" type="button" className="probe-run" onClick={() => this.props.onSendProbe(args)} value="Send Probe" />);
-            }
-
+            elements.push(
+                <input key="probe-run"
+                    type="button"
+                    className="probe-run" 
+                    onClick={() => this.props.onSendProbe(args)} 
+                    value="Send Probe" disabled={!canSend || loadingResult} />);
         } else {
             elements.push(<p key="no-probe">Select a probe to run...</p>);
         }

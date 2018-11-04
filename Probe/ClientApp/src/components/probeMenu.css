@@ -15,5 +15,5 @@ nav ul li a {
 }
 
 nav ul li.selected {
-    
+    font-weight: bold;
 }

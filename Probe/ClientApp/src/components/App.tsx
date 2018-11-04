@@ -1,16 +1,11 @@
 ﻿import * as React from "react";
 import apiClient, { ProbeInfo, ProbeRunArgs } from "./ProbeApiClient";
+import { ProbeRunStats, ProbeStats } from "./ProbeStats";
 import ProbeConfig from "./ProbeConfig";
 import ProbeResult from "./ProbeResult";
 import ProbeMenu from "./ProbeMenu";
 
 import "./app.css";
-
-interface ProbeRunStats {
-    start: Date;
-    end: Date;
-    duration: number;
-}
 
 interface AppState {
     loadingMenu: boolean;
@@ -53,7 +48,7 @@ class App extends React.Component<{}, AppState> {
                 </div>
                 </div>
                 <div className="content">
-                    <ProbeConfig probe={this.state.selectedProbe} onSendProbe={(args: ProbeRunArgs) => this.onSendProbe(args)} />
+                    <ProbeConfig probe={this.state.selectedProbe} onSendProbe={(args: ProbeRunArgs) => this.onSendProbe(args)} loadingResult={loadingResult} />
                     {lastStats && <ProbeStats {...lastStats} />}
                     {selectedProbe && <ProbeResult id={selectedProbe.id} result={result} isLoading={loadingResult} />}
                 </div>
@@ -95,15 +90,5 @@ class App extends React.Component<{}, AppState> {
             });
     }
 }
-
-const ProbeStats: React.SFC<ProbeRunStats> = (props: ProbeRunStats) => {
-    return (
-        <div className="probe-stats">
-            <p>{`Started: ${props.start.toISOString()}`}</p>
-            <p>{`Finished: ${props.end.toISOString()}`}</p>
-            <p>{`Duration: ${props.duration}s`}</p>
-        </div>
-    );
-};
 
 export default App;

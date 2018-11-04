@@ -42,7 +42,7 @@ div.logo, div.menu {
     background: #fff;
     padding: 0 2rem;
     justify-content: center;
-    text-align: right;
+    text-align: left;
 }
 
 h1.logo {
@@ -70,22 +70,13 @@ div.logo {
 
 div.menu {
     grid-column: 2;
-    text-align: center;
-    justify-content: center;
+    text-align: right;
+    justify-content: right;
+    padding-right: 1fr;
 }
 
 div.content {
     grid-row: 2;
     grid-column: 1 / span 2;
     padding: 2rem;
-}
-
-div.probe-stats {
-    margin: .5rem;
-}
-
-div.probe-stats p {
-    font-size: .8rem;
-    color: #666;
-    margin: 0;
 }

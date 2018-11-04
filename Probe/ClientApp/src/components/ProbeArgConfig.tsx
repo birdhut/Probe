@@ -30,17 +30,23 @@ const ProbeArgConfig: React.SFC<ProbeArgConfigProps> = (props: ProbeArgConfigPro
                     control = <NumberArgControl key={`probe-arg-ctrl-${arg.name}`} arg={arg}
                         onValueSet={(name: string, value: string) => props.onValueSet(name, value)} />;
                     break;
+                    case ProbeArgType.DateTime :
+                    control = <DateTimeArgControl key={`probe-arg-ctrl-${arg.name}`} arg={arg}
+                        onValueSet={(name: string, value: string) => props.onValueSet(name, value)} />;
+                    break;
                 default:
                     throw Error("Unsupported control type " + arg.type);
             }
 
             elements.push(
                 <div key={`probe-arg-${arg.name}`} className="probe-arg">
-                    <label key={`probe-arg-lbl-${arg.name}`}>{arg.name}</label>
+                    <label key={`probe-arg-lbl-${arg.name}`}>
+                        {arg.name}
+                        {arg.isRequired &&
+                            <span key={`probe-rqd-${arg.name}`} className="probe-required">*</span>
+                        }
+                    </label>
                     {control}
-                    {arg.isRequired &&
-                        <span key={`probe-rqd-${arg.name}`} className="probe-required">&nbsp;</span>
-                    }
                 </div>
             );
         }
@@ -80,6 +86,15 @@ const DateArgControl: React.SFC<ArgControlProps> = (props: ArgControlProps) => {
 const NumberArgControl: React.SFC<ArgControlProps> = (props: ArgControlProps) => {
     return (
         <input key={`probe-ctrl-${props.arg.name}`} type="number" className="probe-ctrl-number" step="0.001" onChange={(event) => {
+            event.preventDefault();
+            props.onValueSet(props.arg.name, event.target.value);
+        }} />
+    );
+};
+
+const DateTimeArgControl: React.SFC<ArgControlProps> = (props: ArgControlProps) => {
+    return (
+        <input key={`probe-ctrl-${props.arg.name}`} type="datetime-local" className="probe-ctrl-datetime" onChange={(event) => {
             event.preventDefault();
             props.onValueSet(props.arg.name, event.target.value);
         }} />
