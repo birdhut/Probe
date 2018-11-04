@@ -7,7 +7,7 @@
     public class WebClientResourceServiceTests
     {
         private readonly WebClientResourcesService webClient;
-        private const string mainScriptName = "main.js";
+        private const string mainScriptName = "probeweb.20682a.js";
 
         public WebClientResourceServiceTests()
         {
