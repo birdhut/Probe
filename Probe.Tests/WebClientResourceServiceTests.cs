@@ -2,16 +2,27 @@
 {
     using Probe.Service;
     using Shouldly;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
     using Xunit;
 
     public class WebClientResourceServiceTests
     {
         private readonly WebClientResourcesService webClient;
-        private const string mainScriptName = "probeweb.8095d0.js";
+        private readonly string mainScriptName = "probeweb.8095d0.js";
 
         public WebClientResourceServiceTests()
         {
-            webClient = new WebClientResourcesService();
+            webClient = new WebClientResourcesService(new ProbeOptions());
+            Type clientService = typeof(WebClientResourcesService);
+            var assembly = Assembly.GetAssembly(clientService);
+            var ns = clientService.Namespace;
+            var resourcePath = $"{ns}.Client.";
+            string[] resources = assembly.GetManifestResourceNames();
+            List<string> resx = resources.Select(x => x.Replace(resourcePath, "")).ToList();
+            mainScriptName = resx.First(x => x.EndsWith(".js"));
         }
 
         [Fact]
@@ -21,7 +32,7 @@
 
             index.ShouldNotBeNullOrWhiteSpace();
             index.ShouldContain("<html");
-            index.ShouldContain($"<script type=\"text/javascript\" src=\"/{mainScriptName}\"></script>");
+            index.ShouldContain($"<script type=\"text/javascript\" src=\"{mainScriptName}\"></script>");
         }
 
         [Fact]

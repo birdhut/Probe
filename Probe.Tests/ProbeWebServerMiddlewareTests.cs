@@ -11,6 +11,7 @@
     using System.IO;
     using Newtonsoft.Json;
     using System.Dynamic;
+    using Microsoft.AspNetCore.Http;
 
     public class ProbeWebServerMiddlewareTests : MiddlewareTestBase
     {
@@ -88,6 +89,7 @@
                 var options = new ProbeOptions();
                 options.UseWebClient = false;
                 options.ProbeApiPath = path;
+                options.ApiBase = new PathString(path);
                 var contextMock = CreateHttpContext(path, path);
                 var serverMiddleware = new ProbeWebServerMiddleware(next: (innerHttpContext) => Task.FromResult(0), probeService: service.Object, options: options);
 
@@ -122,12 +124,13 @@
                 var options = new ProbeOptions();
                 options.UseWebClient = false;
                 options.ProbeApiPath = path;
+                options.ApiBase = new PathString(path);
                 
                 var serverMiddleware = new ProbeWebServerMiddleware(next: (innerHttpContext) => Task.FromResult(0), probeService: service.Object, options: options);
 
                 foreach (var probe in probes)
                 {
-                    var contextMock = CreateHttpContext(path, $"{path}/{probe.Id}", "POST");
+                    var contextMock = CreateHttpContext(options.ProbeApiPath, $"{probe.Id}", "POST");
 
                     await serverMiddleware.InvokeAsync(contextMock.Object);
 
