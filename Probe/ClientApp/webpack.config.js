@@ -17,6 +17,7 @@ module.exports = (env, argv) => {
     plugins.push(new HtmlWebpackPlugin({
         filename: 'index.html',
         template: path.join(inDir, 'index.hbs'),
+        apiBaseUrl: "/api/probe",
         useMockData: devMode ? true : false
     }));
      plugins.push(new MiniCssExtractPlugin({
