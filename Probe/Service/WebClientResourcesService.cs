@@ -38,15 +38,21 @@
         private static readonly Dictionary<string, string> supportFiles = new Dictionary<string, string>();
 
         /// <summary>
-        /// Stroes the content of any image based files
+        /// Stores the content of any image based files
         /// </summary>
         private static readonly Dictionary<string, byte[]> supportImages = new Dictionary<string, byte[]>();
 
         /// <summary>
+        /// Stores the current probe options
+        /// </summary>
+        private readonly ProbeOptions options;
+
+        /// <summary>
         /// Initialises the object
         /// </summary>
-        public WebClientResourcesService()
+        public WebClientResourcesService(ProbeOptions options)
         {
+            this.options = options ?? throw new ArgumentNullException(nameof(options));
             ns = GetType().Namespace;
             assembly = Assembly.GetExecutingAssembly();
             var files = assembly.GetManifestResourceNames();
@@ -65,6 +71,10 @@
                 if (string.IsNullOrWhiteSpace(indexResource))
                 {
                     indexResource = ReadEmbeddedTextResource("index.html");
+                    if (ProbeOptions.DefaultApiPath != options.ProbeApiPath)
+                    {
+                        indexResource = indexResource.Replace(ProbeOptions.DefaultApiPath, options.ProbeApiPath);
+                    }
                 }
 
                 return indexResource;

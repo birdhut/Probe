@@ -30,24 +30,25 @@
 
         public async Task InvokeAsync(HttpContext context)
         {
-
-            if (context.Request.Path.StartsWithSegments(this.options.ProbeApiPath))
+            if (!context.Request.TryMatchProbeApi(options, out string probeId))
             {
-                var method = context.Request.Method.ToUpper();
-                if (method == "GET")
-                {
-                    await HandleGet(context);
-                    return;
-                }
-                else if (method == "POST")
-                {
-                    await HandlePost(context);
-                    return;
-                }
+                // Call the next delegate/middleware in the pipeline
+                await next(context);
             }
 
-            // Call the next delegate/middleware in the pipeline
-            await next(context);
+            
+            var method = context.Request.Method.ToUpper();
+            if (method == "GET")
+            {
+                await HandleGet(context);
+                return;
+            }
+            else if (method == "POST")
+            {
+                await HandlePost(context, probeId);
+                return;
+            }
+  
         }
 
         private async Task HandleGet(HttpContext context)
@@ -57,10 +58,9 @@
             await context.Response.WriteAsync(output);
         }
 
-        private async Task HandlePost(HttpContext context)
+        private async Task HandlePost(HttpContext context, string probeId)
         {
-            var key = context.Request.Path.Value.Substring(context.Request.Path.Value.LastIndexOf("/")).Trim('/');
-            var probe = probeService.GetProbe(key);
+            var probe = probeService.GetProbe(probeId);
 
             // Get args
             string content = null;

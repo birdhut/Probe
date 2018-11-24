@@ -29,21 +29,18 @@
 
         public async Task InvokeAsync(HttpContext context)
         {
-
-            if ((context.Request.PathBase.HasValue && context.Request.PathBase.Value == options.WebClientPath)
-                || context.Request.Path.HasValue && context.Request.Path.Value == options.WebClientPath)
+            if (!context.Request.TryMatchProbeClient(options, out string relativePath))
             {
-                await context.Response.WriteAsync(service.IndexHtml);
-                return;
+                // Call the next delegate/middleware in the pipeline
+                await next(context);
             }
 
-            if (context.Request.Path.HasValue)
+            if (relativePath != null) // content link
             {
-                var filePath = context.Request.Path.Value.Trim('/');
                 // image handling
-                if (service.IsImageFile(filePath))
+                if (service.IsImageFile(relativePath))
                 {
-                    var imageFile = new ImageFile(filePath);
+                    var imageFile = new ImageFile(relativePath);
                     var image = service[imageFile];
                     if (image != null)
                     {
@@ -53,15 +50,14 @@
                 }
                 else
                 {
-                    await context.Response.WriteAsync(service[context.Request.Path.Value.Trim('/')]);
+                    await context.Response.WriteAsync(service[relativePath]);
                     return;
                 }
-                
-                
             }
-
-            // Call the next delegate/middleware in the pipeline
-            await next(context);
+            else // root index
+            {
+                await context.Response.WriteAsync(service.IndexHtml);
+            }           
         }
     }
 }

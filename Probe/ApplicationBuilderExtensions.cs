@@ -1,6 +1,7 @@
 ﻿namespace Probe
 {
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Http;
     using Probe.Middleware;
     using Probe.Service;
     using System;
@@ -45,13 +46,13 @@
         private static void UseProbeDiagnostics(IApplicationBuilder app, ProbeOptions options, ProbeService service)
         {
             // Generate the Probe Types
-            service.BuildProbes(); 
+            service.BuildProbes();
 
-            app.UseMiddleware<ProbeWebServerMiddleware>(service, options);
+            app.Map(options.ApiBase, builder => builder.UseMiddleware<ProbeWebServerMiddleware>(service, options));
 
             if (options.UseWebClient)
-            {                
-                app.UseMiddleware<ProbeWebClientMiddleware>(options);
+            {
+                app.Map(options.ClientBase, builder => builder.UseMiddleware<ProbeWebClientMiddleware>(options));
             }
         }
     }
