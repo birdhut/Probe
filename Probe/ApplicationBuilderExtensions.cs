@@ -48,7 +48,7 @@
             // Generate the Probe Types
             service.BuildProbes();
 
-            app.Map(options.ApiBase, builder => builder.UseMiddleware<ProbeWebServerMiddleware>(service, options));
+            app.Map(options.ApiBase, builder => builder.UseMiddleware<ProbeApiMiddleware>(service, options));
 
             if (options.UseWebClient)
             {

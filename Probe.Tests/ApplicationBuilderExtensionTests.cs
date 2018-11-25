@@ -1,14 +1,9 @@
 ﻿namespace Probe.Tests
 {
-    using Microsoft.AspNetCore.Builder.Extensions;
     using Microsoft.AspNetCore.Builder.Internal;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
-    using Probe.Middleware;
-    using Probe.Service;
     using Shouldly;
     using System;
-    using System.Reflection;
     using Xunit;
 
     public class ApplicationBuilderExtensionTests

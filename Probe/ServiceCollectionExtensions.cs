@@ -60,7 +60,8 @@
         }
 
         /// <summary>
-        /// Validates that the provided <see cref="ProbeOptions"/> are correctly configured.
+        /// Validates that the provided <see cref="ProbeOptions"/> are correctly configured and populates the
+        /// PathString Base values in the options.
         /// </summary>
         /// <param name="options">The <see cref="ProbeOptions"/> to validate</param>
         private static void ValidateOptions(ProbeOptions options)

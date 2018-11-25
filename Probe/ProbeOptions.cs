@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace Probe
+﻿namespace Probe
 {
+    using Microsoft.AspNetCore.Http;
+
     /// <summary>
     /// Options for configuring the Probe service
     /// </summary>
@@ -25,8 +25,14 @@ namespace Probe
         /// </summary>
         public string ProbeApiPath { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating the Api root as a PathString
+        /// </summary>
         internal PathString ApiBase { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating the WebClient root as a PathString
+        /// </summary>
         internal PathString ClientBase { get; set; }
 
         /// <summary>

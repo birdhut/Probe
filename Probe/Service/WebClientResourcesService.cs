@@ -102,8 +102,10 @@
             }
         }
 
+#pragma warning disable CA1819 // Properties should not return arrays
         /// <inheritdoc />
         public byte[] this[ImageFile file]
+#pragma warning restore CA1819 // Properties should not return arrays
         {
             get
             {

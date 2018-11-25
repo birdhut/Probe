@@ -7,13 +7,33 @@
     using System.IO;
     using System.Threading.Tasks;
 
-    public class ProbeWebServerMiddleware
+    /// <summary>
+    /// Provides aspnetcore Pipeline RequestDelegate for the Probe Api
+    /// </summary>
+    public class ProbeApiMiddleware
     {
+        /// <summary>
+        /// The next deletgate in the aspnet core pipeline
+        /// </summary>
         private readonly RequestDelegate next;
+
+        /// <summary>
+        /// The service used to service requests
+        /// </summary>
         private readonly IProbeService probeService;
+
+        /// <summary>
+        /// Options used to determine whether to service the request
+        /// </summary>
         private readonly ProbeOptions options;
 
-        public ProbeWebServerMiddleware(RequestDelegate next, IProbeService probeService, ProbeOptions options)
+        /// <summary>
+        /// Initialises the Object
+        /// </summary>
+        /// <param name="next">The next delegate in the pipeline</param>
+        /// <param name="probeService">An <see cref="IProbeService"/> used to service the request</param>
+        /// <param name="options"><see cref="ProbeOptions"/> used to determine whether to service the request</param>
+        public ProbeApiMiddleware(RequestDelegate next, IProbeService probeService, ProbeOptions options)
         {
             this.next = next;
             this.probeService = probeService;
@@ -28,6 +48,11 @@
             };
         }
 
+        /// <summary>
+        /// Delegate method called by pipeline to determine whether this middleware can satisfy the request
+        /// </summary>
+        /// <param name="context">The current <see cref="HttpContext"/></param>
+        /// <returns><see cref="Task"/></returns>
         public async Task InvokeAsync(HttpContext context)
         {
             if (!context.Request.TryMatchProbeApi(options, out string probeId))
@@ -51,6 +76,11 @@
   
         }
 
+        /// <summary>
+        /// Handles a GET request to the endpoint
+        /// </summary>
+        /// <param name="context">The current <see cref="HttpContext"/></param>
+        /// <returns><see cref="Task"/></returns>
         private async Task HandleGet(HttpContext context)
         {
             var probes = probeService.GetAllProbes();
@@ -58,6 +88,12 @@
             await context.Response.WriteAsync(output);
         }
 
+        /// <summary>
+        /// Handles a POST request to the endpoint for the given probe Id
+        /// </summary>
+        /// <param name="context">The current <see cref="HttpContext"/></param>
+        /// <param name="probeId">The Id of the probe to run</param>
+        /// <returns><see cref="Task"/></returns>
         private async Task HandlePost(HttpContext context, string probeId)
         {
             var probe = probeService.GetProbe(probeId);
