@@ -26,7 +26,7 @@ export interface IProbeApiClient {
 }
 
 class HttpProbeClient implements IProbeApiClient {
-    constructor(private baseUrl: string = "api/probe") {
+    constructor(private baseUrl: string = "/api/probe") {
     }
     public getProbes(): Promise<ProbeInfo[]> {
         return fetch(this.baseUrl)
@@ -103,5 +103,5 @@ class MockProbeClient implements IProbeApiClient {
     }
 }
 
-const client: IProbeApiClient = config.useMockData ? new MockProbeClient() : new HttpProbeClient();
+const client: IProbeApiClient = config.useMockData ? new MockProbeClient() : new HttpProbeClient(config.apiBaseUrl);
 export default client;

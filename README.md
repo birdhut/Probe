@@ -1,37 +1,7 @@
 
 # ![Probe Logo](./docs/probe_logo.png "Probe Logo") Probe 
 
-Simple plugin for probing running aspnet core applications, providing api and (optional) web client interfaces.
-
-## Getting Started
-
-TBD
-
-### Prerequisites
-
-TBD
-
-```
-TBD examples
-```
-
-### Installing
-
-TBD
-
-```
-TBD example
-```
-
-
-## Running the tests
-
-TBD
-
-
-## Built With
-
-TBD
+Simple plugin for probing running netcore/aspnetcore applications via http(s), providing api and (optional) web client interfaces.
 
 
 ## Versioning

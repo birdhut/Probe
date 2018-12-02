@@ -11,7 +11,7 @@
     <RepositoryUrl>https://github.com/birdhut/Probe</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <Copyright>Birdhut 2018</Copyright>
-    <Description>Simple plugin for probing running aspnet core applications, providing api and (optional) web client interfaces.
+    <Description>Simple plugin for probing running netcore/aspnetcore applications via http(s), providing api and (optional) web client interfaces.
 </Description>
     <Authors>Birdhut</Authors>
     <Company>Birdhut</Company>

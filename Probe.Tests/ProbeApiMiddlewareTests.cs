@@ -11,8 +11,9 @@
     using System.IO;
     using Newtonsoft.Json;
     using System.Dynamic;
+    using Microsoft.AspNetCore.Http;
 
-    public class ProbeWebServerMiddlewareTests : MiddlewareTestBase
+    public class ProbeApiMiddlewareTests : MiddlewareTestBase
     {
         private class TestProbe : IProbe
         {
@@ -55,7 +56,7 @@
         private readonly Mock<IProbeService> service;
         private readonly List<IProbe> probes;
 
-        public ProbeWebServerMiddlewareTests()
+        public ProbeApiMiddlewareTests()
         {
             probes = new List<IProbe>()
             {
@@ -88,8 +89,9 @@
                 var options = new ProbeOptions();
                 options.UseWebClient = false;
                 options.ProbeApiPath = path;
+                options.ApiBase = new PathString(path);
                 var contextMock = CreateHttpContext(path, path);
-                var serverMiddleware = new ProbeWebServerMiddleware(next: (innerHttpContext) => Task.FromResult(0), probeService: service.Object, options: options);
+                var serverMiddleware = new ProbeApiMiddleware(next: (innerHttpContext) => Task.FromResult(0), probeService: service.Object, options: options);
 
                 await serverMiddleware.InvokeAsync(contextMock.Object);
 
@@ -122,12 +124,13 @@
                 var options = new ProbeOptions();
                 options.UseWebClient = false;
                 options.ProbeApiPath = path;
+                options.ApiBase = new PathString(path);
                 
-                var serverMiddleware = new ProbeWebServerMiddleware(next: (innerHttpContext) => Task.FromResult(0), probeService: service.Object, options: options);
+                var serverMiddleware = new ProbeApiMiddleware(next: (innerHttpContext) => Task.FromResult(0), probeService: service.Object, options: options);
 
                 foreach (var probe in probes)
                 {
-                    var contextMock = CreateHttpContext(path, $"{path}/{probe.Id}", "POST");
+                    var contextMock = CreateHttpContext(options.ProbeApiPath, $"{probe.Id}", "POST");
 
                     await serverMiddleware.InvokeAsync(contextMock.Object);
 

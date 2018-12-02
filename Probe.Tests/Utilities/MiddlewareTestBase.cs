@@ -11,7 +11,7 @@
             var requestMock = new Mock<HttpRequest>();
             requestMock.Setup(x => x.Scheme).Returns("http");
             requestMock.Setup(x => x.Host).Returns(new HostString("localhost"));
-            requestMock.Setup(x => x.Path).Returns(new PathString(requestPath));
+            requestMock.Setup(x => x.Path).Returns(new PathString($"/{requestPath}"));
             requestMock.Setup(x => x.PathBase).Returns(new PathString(pathBase));
             requestMock.Setup(x => x.Method).Returns(method);
             requestMock.Setup(x => x.Body).Returns(new MemoryStream());

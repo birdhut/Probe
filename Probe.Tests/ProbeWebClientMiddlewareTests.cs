@@ -89,7 +89,7 @@
                 var options = new ProbeOptions();
                 options.UseWebClient = true;
                 options.WebClientPath = "/test";
-                var contextMock = CreateHttpContext(null, path);
+                var contextMock = CreateHttpContext(options.WebClientPath, path);
                 var clientMiddleware = new ProbeWebClientMiddleware(next: (innerHttpContext) => Task.FromResult(0), options: options, service: clientService.Object);
 
                 await clientMiddleware.InvokeAsync(contextMock.Object);
@@ -118,7 +118,7 @@
                 var options = new ProbeOptions();
                 options.UseWebClient = true;
                 options.WebClientPath = "/test";
-                var contextMock = CreateHttpContext(null, path);
+                var contextMock = CreateHttpContext(options.WebClientPath, path);
                 var clientMiddleware = new ProbeWebClientMiddleware(next: (innerHttpContext) => Task.FromResult(0), options: options, service: clientService.Object);
 
                 await clientMiddleware.InvokeAsync(contextMock.Object);
