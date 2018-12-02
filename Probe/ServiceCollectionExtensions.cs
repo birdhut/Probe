@@ -60,7 +60,8 @@
         }
 
         /// <summary>
-        /// Validates that the provided <see cref="ProbeOptions"/> are correctly configured.
+        /// Validates that the provided <see cref="ProbeOptions"/> are correctly configured and populates the
+        /// PathString Base values in the options.
         /// </summary>
         /// <param name="options">The <see cref="ProbeOptions"/> to validate</param>
         private static void ValidateOptions(ProbeOptions options)
@@ -71,7 +72,7 @@
             }
 
             PathString probeApi = new PathString(options.ProbeApiPath);
-            options.ProbeApiPath = probeApi.ToString();
+            options.ApiBase = probeApi;
 
             if (options.UseWebClient)
             {
@@ -80,8 +81,8 @@
                     throw new ArgumentException(nameof(options));
                 }
 
-                PathString probeWeb = new PathString(options.WebClientPath);
-                options.WebClientPath = probeWeb.ToString();
+                PathString probeWeb = new PathString(options.WebClientPath.TrimEnd('/'));
+                options.ClientBase = probeWeb;
             }
         }
 
@@ -116,7 +117,7 @@
             // Create and register client service if configured for use
             if (options.UseWebClient)
             {
-                var clientService = new WebClientResourcesService();
+                var clientService = new WebClientResourcesService(options);
                 services.AddSingleton<IWebClientService>(clientService);
             }
 

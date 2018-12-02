@@ -1,8 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/birdhut/Probe/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/birdhut/Probe</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/birdhut/Probe/raw/master/docs/probe_logo.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/birdhut/Probe</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <Copyright>Birdhut 2018</Copyright>
+    <Description>Simple plugin for probing running netcore/aspnetcore applications via http(s), providing api and (optional) web client interfaces.
+</Description>
+    <Authors>Birdhut</Authors>
+    <Company>Birdhut</Company>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,22 +24,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Service\Client\favicon.ico" />
-    <None Remove="Service\Client\index.html" />
-    <None Remove="Service\Client\main.js" />
-    <None Remove="Service\Client\styles.css" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Service\Client\favicon.ico" />
-    <EmbeddedResource Include="Service\Client\index.html" />
-    <EmbeddedResource Include="Service\Client\main.js" />
-    <EmbeddedResource Include="Service\Client\styles.css" />
+    <None Remove="Service\Client\**" />
+    <EmbeddedResource Include="Service\Client\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="2.1.3" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\" />
   </ItemGroup>
 
 </Project>

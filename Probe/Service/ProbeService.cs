@@ -1,15 +1,9 @@
-﻿
-using System.Runtime.CompilerServices;
-[assembly: InternalsVisibleTo("Probe.Tests")]
-
-namespace Probe.Service
+﻿namespace Probe.Service
 {
     using Microsoft.Extensions.DependencyInjection;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
-    
 
     /// <summary>
     /// A default, in-memory implementation of the <see cref="IProbeBuilder"/> and <see cref="IProbeService"/> interfaces.

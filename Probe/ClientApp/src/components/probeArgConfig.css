@@ -1,0 +1,47 @@
+fieldset {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  padding: 1rem !important;
+  margin: 1rem 0;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+}
+
+legend {
+  font-size: .8rem;
+  background: #eee;
+  padding: .5rem !important;
+  border-radius: .5rem;
+  margin-left: .5rem !important;
+  border: 1px solid #ccc;
+}
+
+div.probe-arg {
+  margin-bottom: 1rem;
+}
+
+div.probe-arg label {
+  margin-right: 1rem;
+  font-weight: bold;
+  display: inline-block;
+  width: 20%;
+}
+
+div.probe-arg input {
+  width: 70%;
+  grid-column: 2;
+  color: #333;
+}
+
+
+div.probe-arg span.probe-required {
+    color: #d00;
+    display: inline-block;
+    margin-left: .5rem;
+}
+
+
+.probe-ctrl-string {}
+.probe-ctrl-date {}
+.probe-ctrl-number {}

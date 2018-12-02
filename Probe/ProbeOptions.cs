@@ -1,5 +1,7 @@
 ﻿namespace Probe
 {
+    using Microsoft.AspNetCore.Http;
+
     /// <summary>
     /// Options for configuring the Probe service
     /// </summary>
@@ -22,6 +24,16 @@
         /// Gets or sets a value indicating the root relative path (i.e. starting with "/") where the api should be served
         /// </summary>
         public string ProbeApiPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating the Api root as a PathString
+        /// </summary>
+        internal PathString ApiBase { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating the WebClient root as a PathString
+        /// </summary>
+        internal PathString ClientBase { get; set; }
 
         /// <summary>
         /// Initialises the object using default options.
