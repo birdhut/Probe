@@ -26,7 +26,7 @@
             probeRelativePath = null;
 
             // Map is used to configure the pipeline, so we should check PathBase to see if the map is populated
-            if (!request.PathBase.HasValue || !request.PathBase.Value.StartsWith(options.ClientBase))
+            if (!request.PathBase.HasValue && !request.PathBase.Value.StartsWith(options.ClientBase))
             {
                 return false;
             }
